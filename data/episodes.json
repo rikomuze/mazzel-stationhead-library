@@ -1,0 +1,74 @@
+[
+  {
+    "id": "2024-02-09-eiki-hayato",
+    "date": "2024-02-09",
+    "series": "Waterfall",
+    "members": ["EIKI", "HAYATO"],
+    "memo": "",
+    "audioUrl": "",
+    "source": "未登録"
+  },
+  {
+    "id": "2024-03-06-eiki-ryuki",
+    "date": "2024-03-06",
+    "series": "Parade",
+    "members": ["EIKI", "RYUKI"],
+    "memo": "",
+    "audioUrl": "",
+    "source": "未登録"
+  },
+  {
+    "id": "2024-03-18-ran-eiki",
+    "date": "2024-03-18",
+    "series": "Parade",
+    "members": ["RAN", "EIKI"],
+    "memo": "",
+    "audioUrl": "",
+    "source": "未登録"
+  },
+  {
+    "id": "2024-10-23-naoya-eiki",
+    "date": "2024-10-23",
+    "series": "MAZQUERADE",
+    "members": ["NAOYA", "EIKI"],
+    "memo": "",
+    "audioUrl": "",
+    "source": "未登録"
+  },
+  {
+    "id": "2025-02-25-takuto-eiki",
+    "date": "2025-02-25",
+    "series": "J.O.K.E.R.",
+    "members": ["TAKUTO", "EIKI"],
+    "memo": "",
+    "audioUrl": "",
+    "source": "未登録"
+  },
+  {
+    "id": "2026-10-19-touch",
+    "date": "2026-10-19",
+    "series": "Touch",
+    "members": [],
+    "memo": "今回アーカイブが残らなかった回。出演者はあとで入力。",
+    "audioUrl": "",
+    "source": "未登録"
+  },
+  {
+    "id": "2026-10-20-touch",
+    "date": "2026-10-20",
+    "series": "Touch",
+    "members": [],
+    "memo": "今回アーカイブが残らなかった回。出演者はあとで入力。",
+    "audioUrl": "",
+    "source": "未登録"
+  },
+  {
+    "id": "2026-10-21-touch",
+    "date": "2026-10-21",
+    "series": "Touch",
+    "members": [],
+    "memo": "今回アーカイブが残らなかった回。出演者はあとで入力。",
+    "audioUrl": "",
+    "source": "未登録"
+  }
+]
