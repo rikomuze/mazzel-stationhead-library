@@ -438,19 +438,20 @@
   {
     "id": "2025-11-25-seito-ryuki",
     "date": "2025-11-25",
-    "series": "Stationhead",
+    "series": "Only You",
     "members": [
       "SEITO",
       "RYUKI"
     ],
     "memo": "SHUNTO出演回",
     "audioUrl": "",
-    "source": "出演者一覧反映"
+    "source": "出演者一覧反映",
+    "duration": "25m"
   },
   {
     "id": "2025-11-26-takuto-kairyu-hayato",
     "date": "2025-11-26",
-    "series": "Stationhead",
+    "series": "Only You",
     "members": [
       "TAKUTO",
       "KAIRYU",
@@ -458,12 +459,13 @@
     ],
     "memo": "",
     "audioUrl": "",
-    "source": "出演者一覧反映"
+    "source": "出演者一覧反映",
+    "duration": "29m"
   },
   {
     "id": "2025-11-27-eiki-ran-naoya",
     "date": "2025-11-27",
-    "series": "Stationhead",
+    "series": "Only You",
     "members": [
       "EIKI",
       "RAN",
@@ -471,7 +473,98 @@
     ],
     "memo": "",
     "audioUrl": "",
-    "source": "出演者一覧反映"
+    "source": "出演者一覧反映",
+    "duration": "38m"
+  },
+  {
+    "id": "2026-02-02-banquet-bang",
+    "date": "2026-02-02",
+    "series": "BANQUET BANG",
+    "members": [],
+    "memo": "",
+    "duration": "24m",
+    "audioUrl": "",
+    "source": "Stationhead screenshot"
+  },
+  {
+    "id": "2026-02-03-banquet-bang",
+    "date": "2026-02-03",
+    "series": "BANQUET BANG",
+    "members": [],
+    "memo": "",
+    "duration": "35m",
+    "audioUrl": "",
+    "source": "Stationhead screenshot"
+  },
+  {
+    "id": "2026-03-24-get-up-and-dance",
+    "date": "2026-03-24",
+    "series": "Get Up And Dance",
+    "members": [],
+    "memo": "",
+    "duration": "30m",
+    "audioUrl": "",
+    "source": "Stationhead screenshot"
+  },
+  {
+    "id": "2026-03-25-get-up-and-dance",
+    "date": "2026-03-25",
+    "series": "Get Up And Dance",
+    "members": [],
+    "memo": "",
+    "duration": "30m",
+    "audioUrl": "",
+    "source": "Stationhead screenshot"
+  },
+  {
+    "id": "2026-03-26-get-up-and-dance",
+    "date": "2026-03-26",
+    "series": "Get Up And Dance",
+    "members": [],
+    "memo": "",
+    "duration": "29m",
+    "audioUrl": "",
+    "source": "Stationhead screenshot"
+  },
+  {
+    "id": "2026-06-22-so-strawberry",
+    "date": "2026-06-22",
+    "series": "So Strawberry",
+    "members": [],
+    "memo": "",
+    "duration": "26m",
+    "audioUrl": "",
+    "source": "Stationhead screenshot"
+  },
+  {
+    "id": "2026-06-23-so-strawberry",
+    "date": "2026-06-23",
+    "series": "So Strawberry",
+    "members": [],
+    "memo": "",
+    "duration": "25m",
+    "audioUrl": "",
+    "source": "Stationhead screenshot"
+  },
+  {
+    "id": "2026-06-24-so-strawberry",
+    "date": "2026-06-24",
+    "series": "So Strawberry",
+    "members": [],
+    "memo": "",
+    "duration": "30m",
+    "audioUrl": "",
+    "source": "Stationhead screenshot"
+  },
+  {
+    "id": "2026-06-25-so-strawberry",
+    "date": "2026-06-25",
+    "series": "So Strawberry",
+    "members": [],
+    "memo": "",
+    "duration": "33m",
+    "audioUrl": "",
+    "source": "Stationhead screenshot"
   },
   {
     "id": "2026-10-19",
