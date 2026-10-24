@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101217">
+  <title>MAZZEL Stationhead Library</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><p class="eyebrow">PRIVATE ARCHIVE</p><h1>Stationhead Library</h1></div>
+    <button id="favOnlyBtn" class="round">♡</button>
+  </header>
+  <main>
+    <section class="controls">
+      <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="日付・出演者・シリーズ・メモを検索"></label>
+      <div id="memberChips" class="chips"></div>
+      <div class="status-row">
+        <button class="status-btn active" data-status="all">すべて</button>
+        <button class="status-btn" data-status="ready">音源あり</button>
+        <button class="status-btn" data-status="missing">音源未登録</button>
+      </div>
+    </section>
+    <section class="summary"><span id="countLabel"></span><span id="filterLabel">ALL</span></section>
+    <section id="episodeList" class="episode-list"></section>
+  </main>
+
+  <template id="episodeTemplate">
+    <article class="episode-card">
+      <div class="card-head">
+        <div><p class="date"></p><h2 class="series"></h2></div>
+        <button class="fav-btn round">♡</button>
+      </div>
+      <div class="members"></div>
+      <p class="memo"></p>
+      <div class="player-wrap"></div>
+      <div class="meta"></div>
+    </article>
+  </template>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
