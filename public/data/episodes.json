@@ -1,0 +1,503 @@
+[
+  {
+    "id": "2023-10-20-takuto-seito",
+    "date": "2023-10-20",
+    "series": "Stationhead",
+    "members": [
+      "TAKUTO",
+      "SEITO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2023-10-22-kairyu-ryuki",
+    "date": "2023-10-22",
+    "series": "Stationhead",
+    "members": [
+      "KAIRYU",
+      "RYUKI"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-01-29-takuto-ran",
+    "date": "2024-01-29",
+    "series": "Waterfall",
+    "members": [
+      "TAKUTO",
+      "RAN"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-01-30-seito-ryuki",
+    "date": "2024-01-30",
+    "series": "Waterfall",
+    "members": [
+      "SEITO",
+      "RYUKI"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-02-08-kairyu-naoya",
+    "date": "2024-02-08",
+    "series": "Waterfall",
+    "members": [
+      "KAIRYU",
+      "NAOYA"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-02-09-eiki-hayato",
+    "date": "2024-02-09",
+    "series": "Waterfall",
+    "members": [
+      "EIKI",
+      "HAYATO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-03-04-takuto-kairyu",
+    "date": "2024-03-04",
+    "series": "Parade",
+    "members": [
+      "TAKUTO",
+      "KAIRYU"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-03-05-seito-hayato",
+    "date": "2024-03-05",
+    "series": "Parade",
+    "members": [
+      "SEITO",
+      "HAYATO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-03-06-eiki-ryuki",
+    "date": "2024-03-06",
+    "series": "Parade",
+    "members": [
+      "EIKI",
+      "RYUKI"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-03-07-ran-naoya",
+    "date": "2024-03-07",
+    "series": "Parade",
+    "members": [
+      "RAN",
+      "NAOYA"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-03-18-eiki-ran",
+    "date": "2024-03-18",
+    "series": "Parade",
+    "members": [
+      "EIKI",
+      "RAN"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-03-19-takuto-ryuki",
+    "date": "2024-03-19",
+    "series": "Parade",
+    "members": [
+      "TAKUTO",
+      "RYUKI"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-03-20-kairyu-seito",
+    "date": "2024-03-20",
+    "series": "Parade",
+    "members": [
+      "KAIRYU",
+      "SEITO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-03-22-naoya-hayato",
+    "date": "2024-03-22",
+    "series": "Parade",
+    "members": [
+      "NAOYA",
+      "HAYATO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-06-03-kairyu-ran-naoya-hayato",
+    "date": "2024-06-03",
+    "series": "Counterattack",
+    "members": [
+      "KAIRYU",
+      "RAN",
+      "NAOYA",
+      "HAYATO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-06-17-takuto-eiki-seito-ryuki",
+    "date": "2024-06-17",
+    "series": "Counterattack",
+    "members": [
+      "TAKUTO",
+      "EIKI",
+      "SEITO",
+      "RYUKI"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-07-15-eiki-seito",
+    "date": "2024-07-15",
+    "series": "Seaside Story",
+    "members": [
+      "EIKI",
+      "SEITO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-07-16-ryuki-hayato",
+    "date": "2024-07-16",
+    "series": "Seaside Story",
+    "members": [
+      "RYUKI",
+      "HAYATO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-07-17-kairyu-ran",
+    "date": "2024-07-17",
+    "series": "Seaside Story",
+    "members": [
+      "KAIRYU",
+      "RAN"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-07-18-takuto-naoya",
+    "date": "2024-07-18",
+    "series": "Seaside Story",
+    "members": [
+      "TAKUTO",
+      "NAOYA"
+    ],
+    "memo": "TAKUTO出演。NAOYAは最後のみ出演。",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-10-22-kairyu-seito",
+    "date": "2024-10-22",
+    "series": "MAZQUERADE",
+    "members": [
+      "KAIRYU",
+      "SEITO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-10-23-eiki-naoya",
+    "date": "2024-10-23",
+    "series": "MAZQUERADE",
+    "members": [
+      "EIKI",
+      "NAOYA"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-10-24-takuto-ran",
+    "date": "2024-10-24",
+    "series": "MAZQUERADE",
+    "members": [
+      "TAKUTO",
+      "RAN"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2024-10-25-ryuki-hayato",
+    "date": "2024-10-25",
+    "series": "MAZQUERADE",
+    "members": [
+      "RYUKI",
+      "HAYATO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-02-23-ran-ryuki",
+    "date": "2025-02-23",
+    "series": "J.O.K.E.R.",
+    "members": [
+      "RAN",
+      "RYUKI"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-02-24-seito-naoya",
+    "date": "2025-02-24",
+    "series": "J.O.K.E.R.",
+    "members": [
+      "SEITO",
+      "NAOYA"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-02-25-takuto-eiki",
+    "date": "2025-02-25",
+    "series": "J.O.K.E.R.",
+    "members": [
+      "TAKUTO",
+      "EIKI"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-02-26-kairyu-hayato",
+    "date": "2025-02-26",
+    "series": "J.O.K.E.R.",
+    "members": [
+      "KAIRYU",
+      "HAYATO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-04-07-takuto-hayato",
+    "date": "2025-04-07",
+    "series": "King Kila Game",
+    "members": [
+      "TAKUTO",
+      "HAYATO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-04-08-kairyu-ryuki",
+    "date": "2025-04-08",
+    "series": "King Kila Game",
+    "members": [
+      "KAIRYU",
+      "RYUKI"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-04-09-eiki-naoya",
+    "date": "2025-04-09",
+    "series": "King Kila Game",
+    "members": [
+      "EIKI",
+      "NAOYA"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-04-10-seito-ran",
+    "date": "2025-04-10",
+    "series": "King Kila Game",
+    "members": [
+      "SEITO",
+      "RAN"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-08-18-naoya-ryuki",
+    "date": "2025-08-18",
+    "series": "Stationhead",
+    "members": [
+      "NAOYA",
+      "RYUKI"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-08-19-ran-hayato",
+    "date": "2025-08-19",
+    "series": "Stationhead",
+    "members": [
+      "RAN",
+      "HAYATO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-08-20-kairyu-eiki",
+    "date": "2025-08-20",
+    "series": "Stationhead",
+    "members": [
+      "KAIRYU",
+      "EIKI"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-08-21-takuto-seito",
+    "date": "2025-08-21",
+    "series": "Stationhead",
+    "members": [
+      "TAKUTO",
+      "SEITO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-11-25-seito-ryuki",
+    "date": "2025-11-25",
+    "series": "Stationhead",
+    "members": [
+      "SEITO",
+      "RYUKI"
+    ],
+    "memo": "SHUNTO出演回",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-11-26-takuto-kairyu-hayato",
+    "date": "2025-11-26",
+    "series": "Stationhead",
+    "members": [
+      "TAKUTO",
+      "KAIRYU",
+      "HAYATO"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2025-11-27-eiki-ran-naoya",
+    "date": "2025-11-27",
+    "series": "Stationhead",
+    "members": [
+      "EIKI",
+      "RAN",
+      "NAOYA"
+    ],
+    "memo": "",
+    "audioUrl": "",
+    "source": "出演者一覧反映"
+  },
+  {
+    "id": "2026-10-19",
+    "date": "2026-10-19",
+    "series": "Touch",
+    "members": [],
+    "memo": "今回アーカイブが残らなかった回。出演者はあとで入力。",
+    "audioUrl": "",
+    "source": "未登録"
+  },
+  {
+    "id": "2026-10-20",
+    "date": "2026-10-20",
+    "series": "Touch",
+    "members": [],
+    "memo": "今回アーカイブが残らなかった回。出演者はあとで入力。",
+    "audioUrl": "",
+    "source": "未登録"
+  },
+  {
+    "id": "2026-10-21",
+    "date": "2026-10-21",
+    "series": "Touch",
+    "members": [],
+    "memo": "今回アーカイブが残らなかった回。出演者はあとで入力。",
+    "audioUrl": "",
+    "source": "未登録"
+  }
+]
