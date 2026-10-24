@@ -477,8 +477,12 @@
     "id": "2026-10-19",
     "date": "2026-10-19",
     "series": "Touch",
-    "members": [],
-    "memo": "今回アーカイブが残らなかった回。出演者はあとで入力。",
+    "members": [
+      "RAN",
+      "SEITO",
+      "TAKUTO"
+    ],
+    "memo": "今回アーカイブが残らなかった回。",
     "audioUrl": "",
     "source": "未登録"
   },
@@ -486,8 +490,12 @@
     "id": "2026-10-20",
     "date": "2026-10-20",
     "series": "Touch",
-    "members": [],
-    "memo": "今回アーカイブが残らなかった回。出演者はあとで入力。",
+    "members": [
+      "KAIRYU",
+      "RYUKI",
+      "HAYATO"
+    ],
+    "memo": "今回アーカイブが残らなかった回。",
     "audioUrl": "",
     "source": "未登録"
   },
@@ -495,8 +503,11 @@
     "id": "2026-10-21",
     "date": "2026-10-21",
     "series": "Touch",
-    "members": [],
-    "memo": "今回アーカイブが残らなかった回。出演者はあとで入力。",
+    "members": [
+      "NAOYA",
+      "EIKI"
+    ],
+    "memo": "今回アーカイブが残らなかった回。",
     "audioUrl": "",
     "source": "未登録"
   }
