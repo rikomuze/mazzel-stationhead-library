@@ -136,3 +136,23 @@ audio{width:100%;height:40px;accent-color:var(--purple)}
   main{padding-left:18px;padding-right:18px}
   .profile-card{padding:20px}
 }
+
+.youtube-btn{
+  width:100%;margin-top:9px;border:0;border-radius:13px;padding:11px 13px;
+  display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:8px;
+  background:#fff;color:#111;text-align:left;font-weight:800;
+}
+.youtube-btn .yt-icon{width:28px;height:28px;border-radius:8px;background:#ff0033;color:#fff;display:grid;place-items:center;font-size:11px;padding-left:2px}
+.youtube-btn small{font-size:8px;letter-spacing:.08em;color:#777}
+.yt-modal{position:fixed;inset:0;z-index:100;display:none}
+.yt-modal.open{display:block}
+.yt-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(7px)}
+.yt-sheet{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(720px,calc(100% - 24px));background:#11131a;border:1px solid #292e3b;border-radius:20px;padding:14px;box-shadow:0 24px 70px rgba(0,0,0,.6)}
+.yt-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}
+.yt-kicker{margin:0 0 2px;color:#8f95a6;font-size:9px;letter-spacing:.16em}
+#ytTitle{font-size:13px}
+.yt-close{border:0;background:#202431;color:#fff;width:34px;height:34px;border-radius:50%;font-size:22px}
+.yt-player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:13px;overflow:hidden}
+.yt-player iframe{width:100%;height:100%}
+.yt-note{margin:9px 2px 0;color:#747b8c;font-size:9px}
+body.modal-open{overflow:hidden}
