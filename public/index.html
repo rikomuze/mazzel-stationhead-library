@@ -1,67 +1,30 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#08090d">
-  <title>MAZZEL Stationhead Library</title>
-  <link rel="stylesheet" href="./styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08090d">
+<title>MAZZEL ARCHIVE</title>
+<style>
+:root{--bg:#07080c;--panel:#12151d;--line:#272c39;--text:#f6f7fb;--muted:#9ba1b2}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,rgba(86,33,216,.18),transparent 35%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:820px;margin:auto;padding:46px 16px 90px}
+.eyebrow{font-size:10px;letter-spacing:.22em;color:#8e95a7;margin:0 0 8px}.hero h1{font-size:38px;letter-spacing:-.045em;margin:0}.hero p{color:var(--muted);font-size:13px;line-height:1.8;margin:12px 0 0;max-width:560px}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:34px}
+.card{display:block;padding:20px;border-radius:22px;background:linear-gradient(145deg,#151821,#101219);border:1px solid var(--line);color:inherit;text-decoration:none;box-shadow:0 14px 36px rgba(0,0,0,.2)}
+.card-top{display:flex;justify-content:space-between;gap:12px;align-items:center}.num{font-size:10px;color:#747c8f;letter-spacing:.16em}.arrow{font-size:20px;color:#8e95a7}
+.card h2{font-size:24px;margin:14px 0 6px;letter-spacing:-.03em}.card p{margin:0;color:var(--muted);font-size:12px;line-height:1.65}
+.tag{display:inline-block;margin-top:14px;border:1px solid #303646;border-radius:999px;padding:5px 8px;color:#aeb4c3;font-size:9px}
+footer{margin-top:32px;color:#666e7f;font-size:10px}
+@media(min-width:700px){.grid{grid-template-columns:1fr 1fr}}
+</style>
 </head>
-<body>
-  <header class="topbar">
-    <div>
-      <p class="eyebrow">PRIVATE ARCHIVE</p>
-      <h1>Stationhead Library</h1>
-    </div>
-    <button id="favOnlyBtn" class="round" aria-label="お気に入りのみ">♡</button>
-  </header>
-
-  <main>
-    <section class="section-head">
-      <div>
-        <p class="section-kicker">ARCHIVE</p>
-        <h2>Recorded shows</h2>
-      </div>
-      <span id="filterLabel" class="filter-label">ALL</span>
-    </section>
-
-    <section class="controls">
-      <label class="search">
-        <span>⌕</span>
-        <input id="searchInput" type="search" placeholder="日付・出演者・シリーズ・メモを検索">
-      </label>
-      <div id="memberChips" class="chips"></div>
-      <div class="status-row">
-        <button class="status-btn active" data-status="all">すべて</button>
-        <button class="status-btn" data-status="ready">音源あり</button>
-        <button class="status-btn" data-status="missing">音源未登録</button>
-      </div>
-    </section>
-
-    <section class="summary">
-      <span id="countLabel">0 shows</span>
-      <span class="summary-note">新しい順</span>
-    </section>
-
-    <section id="episodeList" class="episode-list"></section>
-  </main>
-
-  <template id="episodeTemplate">
-    <article class="episode-card">
-      <div class="card-head">
-        <div class="card-title-wrap">
-          <p class="date"></p>
-          <h3 class="series"></h3>
-        </div>
-        <button class="fav-btn round" aria-label="お気に入り">♡</button>
-      </div>
-      <div class="members"></div>
-      <p class="memo"></p>
-      <div class="player-wrap"></div>
-      <div class="meta"></div>
-    </article>
-  </template>
-
-  <script type="module" src="./app.js"></script>
-</body>
-</html>
+<body><main>
+<section class="hero"><p class="eyebrow">PRIVATE FAN ARCHIVE</p><h1>MAZZEL ARCHIVE</h1><p>Stationhead、MAZZEL RADIO STATION、配信、ライブ関連の手持ちアーカイブをまとめる個人用資料館。</p></section>
+<section class="grid">
+<a class="card" href="./stationhead/"><div class="card-top"><span class="num">01 / AUDIO</span><span class="arrow">→</span></div><h2>ステへ</h2><p>MAZZEL Stationheadの配信日・出演メンバー・保存音源・YouTubeアーカイブ。</p><span class="tag">STATIONHEAD</span></a>
+<a class="card" href="./radio/"><div class="card-top"><span class="num">02 / RADIO</span><span class="arrow">→</span></div><h2>マゼラジ</h2><p>MAZZEL RADIO STATIONを放送日ごとに整理。YouTubeアーカイブへ直接アクセス。</p><span class="tag">127+ EPISODES</span></a>
+<a class="card" href="./archive/"><div class="card-top"><span class="num">03 / STREAM</span><span class="arrow">→</span></div><h2>配信アーカイブ</h2><p>Instagram Live、YouTube Live、番組・イベント配信など、手持ちの映像をまとめる棚。</p><span class="tag">MY ARCHIVE</span></a>
+<a class="card" href="./bmsg-fes-26/"><div class="card-top"><span class="num">04 / LIVE</span><span class="arrow">→</span></div><h2>BMSG FES ’26</h2><p>BMSG FES ’26関連の映像・メモ・参戦記録をまとめる専用ページ。</p><span class="tag">BMSG FES 2026</span></a>
+</section><footer>Personal archive index</footer>
+</main></body></html>
