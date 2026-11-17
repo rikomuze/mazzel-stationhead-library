@@ -12,6 +12,9 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    // 複製版（SITE_MODE = "lite"）：BMSG FES・動画・アップロードを出さない
+    if (env.SITE_MODE === "lite") return serveLite(request, env, path);
+
     try {
       if (path.startsWith("/videos/")) return await serveVideo(request, env, path);
       if (path === "/api/videos") return await listVideos(env, url);
@@ -27,6 +30,22 @@ export default {
     return env.ASSETS.fetch(request);
   },
 };
+
+// ---------- 複製版 ----------
+const LITE_BLOCKED = ["/bmsg-fes-26", "/upload", "/videos/", "/api/"];
+
+async function serveLite(request, env, path) {
+  if (LITE_BLOCKED.some((p) => path === p || path.startsWith(p.endsWith("/") ? p : p + "/"))) {
+    return new Response("Not found", { status: 404 });
+  }
+  const res = await env.ASSETS.fetch(request);
+  const type = res.headers.get("content-type") || "";
+  if (!type.includes("text/html")) return res;
+  // トップページなどから BMSG FES へのリンクを取り除く
+  return new HTMLRewriter()
+    .on('a[href*="bmsg-fes-26"]', { element(el) { el.remove(); } })
+    .transform(res);
+}
 
 // ---------- 動画の配信 ----------
 async function serveVideo(request, env, path) {

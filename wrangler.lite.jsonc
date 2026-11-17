@@ -1,0 +1,16 @@
+// 複製版（BMSG FES なし）の設定
+// デプロイ：npx wrangler deploy -c wrangler.lite.jsonc
+{
+  "name": "mazzel-library",
+  "compatibility_date": "2026-10-24",
+  "main": "src/worker.js",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    // HTMLはWorkerを通して BMSG FES のリンクを消す／BMSG関連のURLは404にする
+    "run_worker_first": ["/", "/index.html", "/bmsg-fes-26", "/bmsg-fes-26/*", "/upload", "/upload/*"]
+  },
+  "vars": {
+    "SITE_MODE": "lite"
+  }
+}
