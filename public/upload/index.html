@@ -1,0 +1,210 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>動画アップロード</title>
+<style>
+:root{--bg:#07080c;--panel:#12151d;--line:#272c39;--text:#f6f7fb;--muted:#9ba1b2;--accent:#6ea8ff;--ok:#5fd39a;--ng:#ff7a7a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif}
+header{position:sticky;top:0;z-index:2;background:rgba(7,8,12,.9);backdrop-filter:blur(16px);border-bottom:1px solid #20242f;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}header a{color:#b8bdca;text-decoration:none;font-size:10px;border:1px solid #2b303c;padding:7px 10px;border-radius:999px}
+main{max-width:760px;margin:auto;padding:28px 14px 90px}h1{margin:0 0 6px;font-size:26px;letter-spacing:-.03em}.lead{color:var(--muted);font-size:12px;line-height:1.8;margin:0 0 22px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:16px}
+label{display:block;font-size:11px;color:var(--muted);margin:12px 0 6px}label:first-child{margin-top:0}
+input,select,textarea{width:100%;background:#0b0d13;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px 12px;font-size:14px;font-family:inherit}
+textarea{min-height:64px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button{background:var(--accent);color:#06101f;border:0;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;cursor:pointer}button:disabled{opacity:.4;cursor:default}
+button.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);font-weight:400;padding:7px 12px;font-size:11px}
+.drop{border:1.5px dashed #3a4253;border-radius:14px;padding:26px 14px;text-align:center;color:var(--muted);font-size:12px;cursor:pointer}.drop.over{border-color:var(--accent);color:var(--text)}
+.bar{height:8px;background:#0b0d13;border-radius:99px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+.job{font-size:12px;margin-top:12px}.job .st{color:var(--muted)}.ok{color:var(--ok)!important}.ng{color:var(--ng)!important}
+.item{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid var(--line);padding:10px 0;font-size:12px}.item:first-child{border-top:0}.item a{color:var(--text);word-break:break-all}.item small{color:var(--muted)}
+.hidden{display:none}.msg{font-size:12px;margin-top:10px}
+</style></head><body>
+<header><div>動画アップロード</div><a href="../">TOP</a></header>
+<main>
+<h1>動画アップロード</h1>
+<p class="lead">ここから動画をCloudflare R2に保存します。500MB以上の動画も大丈夫です（分割して送ります）。アップロード中はこのページを閉じないでください。</p>
+
+<section class="card" id="login">
+  <label for="pw">アップロード用パスワード</label>
+  <input id="pw" type="password" autocomplete="current-password">
+  <div style="margin-top:12px"><button id="loginBtn">ログイン</button></div>
+  <div class="msg" id="loginMsg"></div>
+</section>
+
+<section class="card hidden" id="form">
+  <label for="folder">保存するページ</label>
+  <select id="folder"><option value="bmsg-fes-26">BMSG FES ’26</option></select>
+
+  <label>動画ファイル</label>
+  <div class="drop" id="drop">ここに動画をドラッグ、またはタップして選択<br><small id="picked"></small></div>
+  <input id="file" type="file" accept="video/*" multiple class="hidden">
+
+  <label for="title">タイトル（1本ずつ送るとき。空ならファイル名）</label>
+  <input id="title" placeholder="例：DAY1 オープニング">
+  <div class="row">
+    <div><label for="date">日付</label><input id="date" type="date"></div>
+    <div><label for="memo">メモ・出演者</label><input id="memo" placeholder="例：MAZZEL / 現地参戦"></div>
+  </div>
+  <div style="margin-top:16px"><button id="startBtn" disabled>アップロード開始</button></div>
+  <div id="jobs"></div>
+</section>
+
+<section class="card hidden" id="listCard">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><strong style="font-size:14px">保存済みの動画</strong><button class="ghost" id="reload">更新</button></div>
+  <div id="list"></div>
+</section>
+</main>
+<script>
+const CHUNK = 20 * 1024 * 1024; // 20MB ずつ送る
+const $ = (id) => document.getElementById(id);
+let password = "";
+let files = [];
+
+function store(get, val) {
+  try { if (get) return sessionStorage.getItem("uploadPw") || ""; sessionStorage.setItem("uploadPw", val); } catch (e) { return ""; }
+}
+
+async function api(path, opts = {}) {
+  const res = await fetch(path, { ...opts, headers: { ...(opts.headers || {}), "x-upload-password": password } });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || ("エラー " + res.status));
+  return data;
+}
+
+async function login(pw) {
+  password = pw;
+  $("loginMsg").textContent = "確認中…";
+  try {
+    await api("/api/upload/check");
+    store(false, pw);
+    $("login").classList.add("hidden");
+    $("form").classList.remove("hidden");
+    $("listCard").classList.remove("hidden");
+    loadList();
+  } catch (e) {
+    $("loginMsg").textContent = e.message;
+    $("loginMsg").className = "msg ng";
+  }
+}
+
+$("loginBtn").onclick = () => login($("pw").value);
+$("pw").onkeydown = (e) => { if (e.key === "Enter") login($("pw").value); };
+const saved = store(true);
+if (saved) login(saved);
+
+const params = new URLSearchParams(location.search);
+if (params.get("folder")) $("folder").value = params.get("folder");
+
+// ファイル選択
+$("drop").onclick = () => $("file").click();
+$("file").onchange = () => pick([...$("file").files]);
+$("drop").ondragover = (e) => { e.preventDefault(); $("drop").classList.add("over"); };
+$("drop").ondragleave = () => $("drop").classList.remove("over");
+$("drop").ondrop = (e) => { e.preventDefault(); $("drop").classList.remove("over"); pick([...e.dataTransfer.files]); };
+
+function pick(list) {
+  files = list;
+  $("picked").textContent = list.map((f) => `${f.name}（${mb(f.size)}）`).join(" / ");
+  $("startBtn").disabled = !list.length;
+}
+
+function mb(n) { return n >= 1e9 ? (n / 1e9).toFixed(2) + "GB" : (n / 1e6).toFixed(1) + "MB"; }
+
+$("startBtn").onclick = async () => {
+  $("startBtn").disabled = true;
+  const single = files.length === 1;
+  for (const f of files) {
+    await uploadOne(f, {
+      folder: $("folder").value,
+      title: single ? $("title").value.trim() : "",
+      date: $("date").value,
+      memo: $("memo").value.trim(),
+    });
+  }
+  files = [];
+  $("file").value = "";
+  $("picked").textContent = "";
+  $("title").value = "";
+  loadList();
+};
+
+async function uploadOne(file, meta) {
+  const box = document.createElement("div");
+  box.className = "job";
+  box.innerHTML = `<div>${escapeHtml(file.name)} <span class="st">準備中…</span></div><div class="bar"><i></i></div>`;
+  $("jobs").prepend(box);
+  const st = box.querySelector(".st"), bar = box.querySelector("i");
+  window.onbeforeunload = () => "アップロード中です";
+
+  let created;
+  try {
+    created = await api("/api/upload/create", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ ...meta, filename: file.name, contentType: file.type }),
+    });
+    const total = Math.max(1, Math.ceil(file.size / CHUNK));
+    const parts = [];
+    for (let i = 0; i < total; i++) {
+      const blob = file.slice(i * CHUNK, Math.min(file.size, (i + 1) * CHUNK));
+      const q = new URLSearchParams({ key: created.key, uploadId: created.uploadId, partNumber: String(i + 1) });
+      let part, tries = 0;
+      while (true) {
+        try { part = await api("/api/upload/part?" + q, { method: "PUT", body: blob }); break; }
+        catch (e) { if (++tries >= 4) throw e; st.textContent = `再送中…（${tries}回目）`; await new Promise((r) => setTimeout(r, 2000 * tries)); }
+      }
+      parts.push(part);
+      const pct = Math.round(((i + 1) / total) * 100);
+      bar.style.width = pct + "%";
+      st.textContent = `${pct}%（${mb(Math.min(file.size, (i + 1) * CHUNK))} / ${mb(file.size)}）`;
+    }
+    st.textContent = "仕上げ中…";
+    await api("/api/upload/complete", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ key: created.key, uploadId: created.uploadId, parts }),
+    });
+    st.textContent = "完了！";
+    st.className = "st ok";
+  } catch (e) {
+    st.textContent = "失敗：" + e.message;
+    st.className = "st ng";
+    if (created) api("/api/upload/abort", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(created) }).catch(() => {});
+  } finally {
+    window.onbeforeunload = null;
+  }
+}
+
+async function loadList() {
+  $("list").innerHTML = '<div class="item"><small>読み込み中…</small></div>';
+  try {
+    const { videos } = await api("/api/upload/list", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ folder: "" }),
+    });
+    if (!videos.length) { $("list").innerHTML = '<div class="item"><small>まだありません</small></div>'; return; }
+    $("list").innerHTML = "";
+    for (const v of videos) {
+      const row = document.createElement("div");
+      row.className = "item";
+      row.innerHTML = `<div><a href="${v.url}" target="_blank">${escapeHtml(v.title || v.key)}</a><br><small>${escapeHtml(v.key)}・${mb(v.size)}</small></div>`;
+      const del = document.createElement("button");
+      del.className = "ghost";
+      del.textContent = "削除";
+      del.onclick = async () => {
+        if (del.dataset.confirm !== "1") { del.dataset.confirm = "1"; del.textContent = "本当に削除？"; return; }
+        del.disabled = true;
+        try { await api("/api/delete", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ key: v.key }) }); row.remove(); }
+        catch (e) { del.textContent = "失敗"; }
+      };
+      row.appendChild(del);
+      $("list").appendChild(row);
+    }
+  } catch (e) {
+    $("list").innerHTML = `<div class="item"><small class="ng">${escapeHtml(e.message)}</small></div>`;
+  }
+}
+$("reload").onclick = loadList;
+
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+</script>
+</body></html>
