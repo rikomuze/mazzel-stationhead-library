@@ -1,7 +1,21 @@
 {
   "name": "mazzel-stationhead-library",
   "compatibility_date": "2026-10-24",
+  "main": "src/worker.js",
   "assets": {
-    "directory": "./public"
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  // 動画置き場（Cloudflare R2）
+  "r2_buckets": [
+    { "binding": "VIDEOS", "bucket_name": "bmsg-videos" }
+  ],
+  // PRごとのプレビュー版でも同じバケットを使う（個人用サイトなので本番と共有）
+  "previews": {
+    "r2_buckets": [
+      { "binding": "VIDEOS", "bucket_name": "bmsg-videos" }
+    ]
   }
+  // アップロード用パスワードは、ダッシュボードの
+  // Settings → Variables and Secrets で UPLOAD_PASSWORD（Secret）として登録する
 }
