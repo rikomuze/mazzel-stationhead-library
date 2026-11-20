@@ -2,7 +2,35 @@
 <style>
 :root{--bg:#07080c;--panel:#12151d;--line:#272c39;--text:#f6f7fb;--muted:#9ba1b2}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif}
-header{position:sticky;top:0;background:rgba(7,8,12,.9);backdrop-filter:blur(16px);border-bottom:1px solid #20242f;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}header a{color:#b8bdca;text-decoration:none;font-size:10px;border:1px solid #2b303c;padding:7px 10px;border-radius:999px}
+header{position:sticky;top:0;z-index:2;background:rgba(7,8,12,.9);backdrop-filter:blur(16px);border-bottom:1px solid #20242f;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}header a{color:#b8bdca;text-decoration:none;font-size:10px;border:1px solid #2b303c;padding:7px 10px;border-radius:999px}
 main{max-width:760px;margin:auto;padding:28px 14px 90px}.eyebrow{margin:0 0 6px;color:#8d95a8;font-size:9px;letter-spacing:.18em}h1{margin:0;font-size:30px;letter-spacing:-.04em}.lead{color:var(--muted);font-size:12px;line-height:1.8;margin:10px 0 26px}
 .empty{border:1px dashed #333a49;background:#101219;border-radius:20px;padding:34px 20px;text-align:center}.empty strong{display:block;font-size:18px;margin-bottom:7px}.empty span{color:var(--muted);font-size:11px;line-height:1.7}
-</style></head><body><header><div>配信アーカイブ</div><a href="../">TOP</a></header><main><p class="eyebrow">MY STREAM ARCHIVE</p><h1>配信アーカイブ</h1><p class="lead">Instagram Live、YouTube Live、番組配信などの手持ち映像を整理するページ。</p><div class="empty"><strong>ここにアーカイブを追加していけます</strong><span>日付・タイトル・出演者・保存先URL・メモをカード形式で登録する予定。</span></div></main></body></html>
+.video{background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-bottom:16px}
+.video video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+.video .body{padding:14px 16px 16px}.video .date{color:#8d95a8;font-size:10px;letter-spacing:.08em;margin-bottom:4px}.video h2{margin:0;font-size:16px;line-height:1.5}.video p{color:var(--muted);font-size:12px;line-height:1.7;margin:6px 0 0}
+.add{display:inline-block;margin-top:14px;color:#b8bdca;text-decoration:none;font-size:11px;border:1px solid #2b303c;padding:8px 12px;border-radius:999px}
+</style></head><body><header><div>配信アーカイブ</div><a href="../">TOP</a></header><main><p class="eyebrow">MY STREAM ARCHIVE</p><h1>配信アーカイブ</h1><p class="lead">Instagram Live、YouTube Live、番組配信などの手持ち映像を整理するページ。</p>
+<div id="videos"><div class="empty"><span>読み込み中…</span></div></div>
+<a class="add" href="/upload/?folder=archive">＋ 動画を追加</a>
+</main>
+<script>
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+fetch("/api/videos?folder=archive")
+  .then((r) => r.json())
+  .then(({ videos }) => {
+    const box = document.getElementById("videos");
+    if (!videos || !videos.length) {
+      box.innerHTML = '<div class="empty"><strong>ここにアーカイブを追加していけます</strong><span>「＋ 動画を追加」からアップロードすると、ここに表示されます。</span></div>';
+      return;
+    }
+    box.innerHTML = videos.map((v) => {
+      const name = v.title || v.key.split("/").pop().replace(/\.[^.]+$/, "");
+      const date = v.date ? v.date.replace(/-/g, ".") : "";
+      return `<article class="video"><video controls preload="metadata" playsinline src="${esc(v.url)}"></video><div class="body">${date ? `<div class="date">${esc(date)}</div>` : ""}<h2>${esc(name)}</h2>${v.memo ? `<p>${esc(v.memo)}</p>` : ""}</div></article>`;
+    }).join("");
+  })
+  .catch(() => {
+    document.getElementById("videos").innerHTML = '<div class="empty"><span>動画一覧を読み込めませんでした。</span></div>';
+  });
+</script>
+</body></html>
