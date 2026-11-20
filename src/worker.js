@@ -5,7 +5,7 @@
 // - /api/upload/*      : ブラウザからの分割アップロード（UPLOAD_PASSWORD 必須）
 // - /api/delete        : 動画の削除（UPLOAD_PASSWORD 必須）
 
-const PUBLIC_FOLDERS = ["bmsg-fes-26/", "archive/"];
+const PUBLIC_FOLDERS = ["bmsg-fes-26/", "archive/", "radio-audio/"];
 
 export default {
   async fetch(request, env) {
@@ -218,7 +218,7 @@ function guessType(key) {
   const ext = (key.split(".").pop() || "").toLowerCase();
   return {
     mp4: "video/mp4", m4v: "video/mp4", mov: "video/quicktime", webm: "video/webm",
-    mkv: "video/x-matroska", m4a: "audio/mp4", mp3: "audio/mpeg", jpg: "image/jpeg", png: "image/png",
+    mkv: "video/x-matroska", m4a: "audio/mp4", mp3: "audio/mpeg", aac: "audio/aac", wav: "audio/wav", ogg: "audio/ogg", opus: "audio/ogg", flac: "audio/flac", jpg: "image/jpeg", png: "image/png",
   }[ext] || "application/octet-stream";
 }
 

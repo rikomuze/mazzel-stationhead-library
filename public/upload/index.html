@@ -31,11 +31,11 @@ button.ghost{background:transparent;color:var(--muted);border:1px solid var(--li
 
 <section class="card hidden" id="form">
   <label for="folder">保存するページ</label>
-  <select id="folder"><option value="bmsg-fes-26">BMSG FES ’26</option><option value="archive">配信アーカイブ</option></select>
+  <select id="folder"><option value="bmsg-fes-26">BMSG FES ’26</option><option value="archive">配信アーカイブ</option><option value="radio-audio">ラジオ（音声）</option></select>
 
-  <label>動画ファイル</label>
-  <div class="drop" id="drop">ここに動画をドラッグ、またはタップして選択<br><small id="picked"></small></div>
-  <input id="file" type="file" accept="video/*" multiple class="hidden">
+  <label>動画・音声ファイル</label>
+  <div class="drop" id="drop">ここに動画・音声をドラッグ、またはタップして選択<br><small id="picked"></small></div>
+  <input id="file" type="file" accept="video/*,audio/*" multiple class="hidden">
 
   <label for="title">タイトル（1本ずつ送るとき。空ならファイル名）</label>
   <input id="title" placeholder="例：DAY1 オープニング">
