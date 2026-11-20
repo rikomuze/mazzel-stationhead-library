@@ -110,7 +110,7 @@ async function collect(env, prefix) {
         key: o.key,
         url: "/videos/" + o.key.split("/").map(encodeURIComponent).join("/"),
         size: o.size,
-        uploaded: o.uploaded,
+        uploaded: new Date(o.uploaded).toISOString(),
         type: (o.httpMetadata && o.httpMetadata.contentType) || guessType(o.key),
         title: meta.title || "",
         date: meta.date || "",
@@ -119,7 +119,9 @@ async function collect(env, prefix) {
     }
     cursor = page.truncated ? page.cursor : undefined;
   } while (cursor);
-  videos.sort((a, b) => (b.date || b.uploaded).localeCompare(a.date || a.uploaded));
+  // 日付が入っていればその日付、なければアップロード日時で新しい順
+  const sortKey = (v) => String(v.date || v.uploaded.slice(0, 10)) + " " + v.uploaded;
+  videos.sort((a, b) => sortKey(b).localeCompare(sortKey(a)));
   return videos;
 }
 
