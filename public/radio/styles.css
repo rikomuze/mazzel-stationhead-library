@@ -24,3 +24,17 @@ main{max-width:760px;margin:auto;padding:18px 14px 96px}
 .memo{margin:10px 0 0;color:#b9bfcb;font-size:12px;line-height:1.65}.links{display:grid;gap:7px;margin-top:13px}.source-link{display:flex;justify-content:space-between;align-items:center;border-radius:12px;padding:11px 12px;background:#202431;border:1px solid #303646;font-size:12px;font-weight:700}.source-link small{color:#8f96a7;font-size:9px}.source-link.youtube{background:#fff;color:#111}.source-link.youtube small{color:#777}.source-link.audee{background:#4b28c8;color:#fff;border-color:#6542e1}.missing{display:flex;justify-content:center;align-items:center;min-height:42px;border:1px dashed #353b49;border-radius:12px;color:#747c8d;font-size:11px}
 .meta{display:flex;justify-content:space-between;gap:10px;margin-top:9px;color:#666e7f;font-size:9px}.empty{text-align:center;color:var(--muted);padding:56px 20px}
 @media (min-width:700px){main{padding-left:18px;padding-right:18px}}
+
+button.source-link{width:100%;cursor:pointer;text-align:left;font-family:inherit;color:inherit}button.source-link.youtube{color:#111}
+.yt-modal{position:fixed;inset:0;z-index:100;display:none}
+.yt-modal.open{display:block}
+.yt-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(7px)}
+.yt-sheet{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(720px,calc(100% - 24px));background:#11131a;border:1px solid #292e3b;border-radius:20px;padding:14px;box-shadow:0 24px 70px rgba(0,0,0,.6)}
+.yt-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}
+.yt-kicker{margin:0 0 2px;color:#8f95a6;font-size:9px;letter-spacing:.16em}
+.yt-head strong{color:#fff;font-size:14px}
+.yt-close{border:0;background:#202431;color:#fff;width:34px;height:34px;border-radius:50%;font-size:22px;cursor:pointer}
+.yt-player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:13px;overflow:hidden}
+.yt-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-note{margin:9px 2px 0;color:#747b8c;font-size:9px}
+body.modal-open{overflow:hidden}
