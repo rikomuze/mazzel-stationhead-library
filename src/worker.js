@@ -99,16 +99,30 @@ async function listVideos(env, url) {
   return json({ videos: await collect(env, prefix) });
 }
 
+const THUMB_PREFIX = "_thumbs/";
+const fileUrl = (key) => "/videos/" + key.split("/").map(encodeURIComponent).join("/");
+
 async function collect(env, prefix) {
+  // サムネイル（_thumbs/<元のキー>）の一覧を先に集める
+  const thumbs = new Map();
+  let tc;
+  do {
+    const page = await env.VIDEOS.list({ prefix: THUMB_PREFIX + prefix, cursor: tc });
+    for (const o of page.objects) thumbs.set(o.key.slice(THUMB_PREFIX.length), o.etag);
+    tc = page.truncated ? page.cursor : undefined;
+  } while (tc);
+
   const videos = [];
   let cursor;
   do {
     const page = await env.VIDEOS.list({ prefix, cursor, include: ["customMetadata", "httpMetadata"] });
     for (const o of page.objects) {
+      if (o.key.startsWith(THUMB_PREFIX)) continue;
       const meta = decodeMeta(o.customMetadata || {});
       videos.push({
         key: o.key,
-        url: "/videos/" + o.key.split("/").map(encodeURIComponent).join("/"),
+        url: fileUrl(o.key),
+        thumb: thumbs.has(o.key) ? fileUrl(THUMB_PREFIX + o.key) + "?v=" + thumbs.get(o.key).slice(0, 8) : "",
         size: o.size,
         uploaded: new Date(o.uploaded).toISOString(),
         type: (o.httpMetadata && o.httpMetadata.contentType) || guessType(o.key),
@@ -180,10 +194,29 @@ async function handleUpload(request, env, path) {
     return json({ ok: true });
   }
 
+  if (path === "/api/upload/thumb" && request.method === "PUT") {
+    const key = url.searchParams.get("key");
+    if (!key || key.startsWith(THUMB_PREFIX) || !request.body) return json({ error: "パラメータが足りません" }, 400);
+    if (!(await env.VIDEOS.head(key))) return json({ error: "元のファイルが見つかりません" }, 404);
+    const type = request.headers.get("content-type") || "image/jpeg";
+    if (!type.startsWith("image/")) return json({ error: "画像ファイルを選んでください" }, 400);
+    await env.VIDEOS.put(THUMB_PREFIX + key, request.body, {
+      httpMetadata: { contentType: type, cacheControl: "public, max-age=300" },
+    });
+    return json({ ok: true });
+  }
+
+  if (path === "/api/upload/thumb-delete" && request.method === "POST") {
+    const body = await request.json();
+    if (!body.key) return json({ error: "key がありません" }, 400);
+    await env.VIDEOS.delete(THUMB_PREFIX + body.key);
+    return json({ ok: true });
+  }
+
   if (path === "/api/delete" && request.method === "POST") {
     const body = await request.json();
     if (!body.key) return json({ error: "key がありません" }, 400);
-    await env.VIDEOS.delete(body.key);
+    await env.VIDEOS.delete([body.key, THUMB_PREFIX + body.key]);
     return json({ ok: true });
   }
 

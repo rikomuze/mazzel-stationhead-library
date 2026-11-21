@@ -26,7 +26,7 @@ fetch("/api/videos?folder=bmsg-fes-26")
     box.innerHTML = videos.map((v) => {
       const name = v.title || v.key.split("/").pop().replace(/\.[^.]+$/, "");
       const date = v.date ? v.date.replace(/-/g, ".") : "";
-      return `<article class="video"><video controls preload="metadata" playsinline src="${esc(v.url)}"></video><div class="body">${date ? `<div class="date">${esc(date)}</div>` : ""}<h2>${esc(name)}</h2>${v.memo ? `<p>${esc(v.memo)}</p>` : ""}</div></article>`;
+      return `<article class="video"><video controls preload="metadata" playsinline src="${esc(v.url)}"${v.thumb ? ` poster="${esc(v.thumb)}"` : ""}></video><div class="body">${date ? `<div class="date">${esc(date)}</div>` : ""}<h2>${esc(name)}</h2>${v.memo ? `<p>${esc(v.memo)}</p>` : ""}</div></article>`;
     }).join("");
   })
   .catch(() => {

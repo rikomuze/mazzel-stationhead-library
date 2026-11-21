@@ -6,7 +6,7 @@ header{position:sticky;top:0;z-index:2;background:rgba(7,8,12,.9);backdrop-filte
 main{max-width:760px;margin:auto;padding:28px 14px 90px}.eyebrow{margin:0 0 6px;color:#8d95a8;font-size:9px;letter-spacing:.18em}h1{margin:0;font-size:30px;letter-spacing:-.04em}.lead{color:var(--muted);font-size:12px;line-height:1.8;margin:10px 0 26px}
 .empty{border:1px dashed #333a49;background:#101219;border-radius:20px;padding:34px 20px;text-align:center}.empty strong{display:block;font-size:18px;margin-bottom:7px}.empty span{color:var(--muted);font-size:11px;line-height:1.7}
 .video{background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-bottom:16px}
-.video audio{display:block;width:100%;margin-top:12px}
+.video audio{display:block;width:100%;margin-top:12px}.video .cover{display:block;width:100%;aspect-ratio:1/1;max-height:420px;object-fit:cover;background:#000}
 .video .body{padding:14px 16px 16px}.video .date{color:#8d95a8;font-size:10px;letter-spacing:.08em;margin-bottom:4px}.video h2{margin:0;font-size:16px;line-height:1.5}.video p{color:var(--muted);font-size:12px;line-height:1.7;margin:6px 0 0}
 .add{display:inline-block;margin-top:14px;color:#b8bdca;text-decoration:none;font-size:11px;border:1px solid #2b303c;padding:8px 12px;border-radius:999px}
 </style></head><body><header><div>ラジオ</div><a href="../">TOP</a></header><main><p class="eyebrow">ON AIR</p><h1>ラジオ</h1><p class="lead">ゲスト出演したラジオ番組など、手持ちの音声をまとめて聴けるページ。</p>
@@ -26,7 +26,7 @@ fetch("/api/videos?folder=radio-audio")
     box.innerHTML = videos.map((v) => {
       const name = v.title || v.key.split("/").pop().replace(/\.[^.]+$/, "");
       const date = v.date ? v.date.replace(/-/g, ".") : "";
-      return `<article class="video"><div class="body">${date ? `<div class="date">${esc(date)}</div>` : ""}<h2>${esc(name)}</h2>${v.memo ? `<p>${esc(v.memo)}</p>` : ""}<audio controls preload="metadata" src="${esc(v.url)}"></audio></div></article>`;
+      return `<article class="video">${v.thumb ? `<img class="cover" src="${esc(v.thumb)}" alt="" loading="lazy">` : ""}<div class="body">${date ? `<div class="date">${esc(date)}</div>` : ""}<h2>${esc(name)}</h2>${v.memo ? `<p>${esc(v.memo)}</p>` : ""}<audio controls preload="metadata" src="${esc(v.url)}"></audio></div></article>`;
     }).join("");
   })
   .catch(() => {
