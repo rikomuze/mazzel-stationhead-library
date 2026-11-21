@@ -100,6 +100,17 @@ async function listVideos(env, url) {
 }
 
 const THUMB_PREFIX = "_thumbs/";
+// あとから直したタイトル・日付・メモ（ファイル本体は書き換えずに、ここに上書き情報を持つ）
+const META_KEY = "_meta/overrides.json";
+
+async function readOverrides(env) {
+  const obj = await env.VIDEOS.get(META_KEY);
+  if (!obj) return {};
+  try { return await obj.json(); } catch { return {}; }
+}
+async function writeOverrides(env, data) {
+  await env.VIDEOS.put(META_KEY, JSON.stringify(data), { httpMetadata: { contentType: "application/json" } });
+}
 const fileUrl = (key) => "/videos/" + key.split("/").map(encodeURIComponent).join("/");
 
 async function collect(env, prefix) {
@@ -112,13 +123,14 @@ async function collect(env, prefix) {
     tc = page.truncated ? page.cursor : undefined;
   } while (tc);
 
+  const overrides = await readOverrides(env);
   const videos = [];
   let cursor;
   do {
     const page = await env.VIDEOS.list({ prefix, cursor, include: ["customMetadata", "httpMetadata"] });
     for (const o of page.objects) {
-      if (o.key.startsWith(THUMB_PREFIX)) continue;
-      const meta = decodeMeta(o.customMetadata || {});
+      if (o.key.startsWith(THUMB_PREFIX) || o.key.startsWith("_meta/")) continue;
+      const meta = { ...decodeMeta(o.customMetadata || {}), ...(overrides[o.key] || {}) };
       videos.push({
         key: o.key,
         url: fileUrl(o.key),
@@ -206,6 +218,19 @@ async function handleUpload(request, env, path) {
     return json({ ok: true });
   }
 
+  if (path === "/api/upload/meta" && request.method === "POST") {
+    const body = await request.json();
+    if (!body.key || body.key.startsWith("_")) return json({ error: "key がありません" }, 400);
+    if (!(await env.VIDEOS.head(body.key))) return json({ error: "ファイルが見つかりません" }, 404);
+    const clean = (v, n) => String(v || "").trim().slice(0, n);
+    const date = clean(body.date, 10);
+    if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) return json({ error: "日付の形式が正しくありません" }, 400);
+    const data = await readOverrides(env);
+    data[body.key] = { title: clean(body.title, 200), date, memo: clean(body.memo, 500) };
+    await writeOverrides(env, data);
+    return json({ ok: true, meta: data[body.key] });
+  }
+
   if (path === "/api/upload/thumb-delete" && request.method === "POST") {
     const body = await request.json();
     if (!body.key) return json({ error: "key がありません" }, 400);
@@ -217,6 +242,8 @@ async function handleUpload(request, env, path) {
     const body = await request.json();
     if (!body.key) return json({ error: "key がありません" }, 400);
     await env.VIDEOS.delete([body.key, THUMB_PREFIX + body.key]);
+    const data = await readOverrides(env);
+    if (data[body.key]) { delete data[body.key]; await writeOverrides(env, data); }
     return json({ ok: true });
   }
 
