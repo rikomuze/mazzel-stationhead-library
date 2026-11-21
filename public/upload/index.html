@@ -15,6 +15,8 @@ button.ghost{background:transparent;color:var(--muted);border:1px solid var(--li
 .bar{height:8px;background:#0b0d13;border-radius:99px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
 .job{font-size:12px;margin-top:12px}.job .st{color:var(--muted)}.ok{color:var(--ok)!important}.ng{color:var(--ng)!important}
 .item{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid var(--line);padding:10px 0;font-size:12px}.item:first-child{border-top:0}.item a{color:var(--text);word-break:break-all}.item small{color:var(--muted)}
+.thumbpick{display:flex;gap:10px;align-items:center}.thumbpick img{width:56px;height:56px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.item .left{display:flex;gap:10px;align-items:center;min-width:0}.item .tn{width:44px;height:44px;flex:none;border-radius:8px;object-fit:cover;background:#0b0d13;border:1px solid var(--line)}.item .btns{display:flex;gap:6px;flex:none}
 .hidden{display:none}.msg{font-size:12px;margin-top:10px}
 </style></head><body>
 <header><div>動画アップロード</div><a href="../">TOP</a></header>
@@ -43,6 +45,9 @@ button.ghost{background:transparent;color:var(--muted);border:1px solid var(--li
     <div><label for="date">日付</label><input id="date" type="date"></div>
     <div><label for="memo">メモ・出演者</label><input id="memo" placeholder="例：MAZZEL / 現地参戦"></div>
   </div>
+  <label>サムネイル画像（任意・1本ずつ送るとき）</label>
+  <div class="thumbpick"><img id="thumbPreview" class="hidden" alt=""><button type="button" class="ghost" id="thumbBtn">画像を選ぶ</button><button type="button" class="ghost hidden" id="thumbClear">外す</button></div>
+  <input id="thumbFile" type="file" accept="image/*" class="hidden">
   <div style="margin-top:16px"><button id="startBtn" disabled>アップロード開始</button></div>
   <div id="jobs"></div>
 </section>
@@ -112,13 +117,17 @@ $("startBtn").onclick = async () => {
   $("startBtn").disabled = true;
   const single = files.length === 1;
   for (const f of files) {
-    await uploadOne(f, {
+    const key = await uploadOne(f, {
       folder: $("folder").value,
       title: single ? $("title").value.trim() : "",
       date: $("date").value,
       memo: $("memo").value.trim(),
     });
+    if (key && single && thumbFile) {
+      try { await uploadThumb(key, thumbFile); } catch (e) { alertJob("サムネイルの保存に失敗：" + e.message); }
+    }
   }
+  setThumb(null);
   files = [];
   $("file").value = "";
   $("picked").textContent = "";
@@ -164,6 +173,7 @@ async function uploadOne(file, meta) {
     });
     st.textContent = "完了！";
     st.className = "st ok";
+    return created.key;
   } catch (e) {
     st.textContent = "失敗：" + e.message;
     st.className = "st ng";
@@ -171,6 +181,39 @@ async function uploadOne(file, meta) {
   } finally {
     window.onbeforeunload = null;
   }
+}
+
+// ---- サムネイル ----
+let thumbFile = null;
+function setThumb(f) {
+  thumbFile = f;
+  const img = $("thumbPreview");
+  if (f) { img.src = URL.createObjectURL(f); img.classList.remove("hidden"); $("thumbClear").classList.remove("hidden"); $("thumbBtn").textContent = "変更"; }
+  else { img.removeAttribute("src"); img.classList.add("hidden"); $("thumbClear").classList.add("hidden"); $("thumbBtn").textContent = "画像を選ぶ"; $("thumbFile").value = ""; }
+}
+$("thumbBtn").onclick = () => $("thumbFile").click();
+$("thumbFile").onchange = () => setThumb($("thumbFile").files[0] || null);
+$("thumbClear").onclick = () => setThumb(null);
+
+function alertJob(text) {
+  const d = document.createElement("div"); d.className = "job"; d.innerHTML = `<span class="st ng">${escapeHtml(text)}</span>`; $("jobs").prepend(d);
+}
+
+// 大きい画像は 800px・JPEG に縮めてから送る
+async function shrink(file) {
+  try {
+    const bmp = await createImageBitmap(file);
+    const scale = Math.min(1, 800 / Math.max(bmp.width, bmp.height));
+    const c = document.createElement("canvas");
+    c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
+    c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+    return await new Promise((r) => c.toBlob((b) => r(b || file), "image/jpeg", 0.85));
+  } catch (e) { return file; }
+}
+
+async function uploadThumb(key, file) {
+  const blob = await shrink(file);
+  await api("/api/upload/thumb?key=" + encodeURIComponent(key), { method: "PUT", headers: { "content-type": blob.type || "image/jpeg" }, body: blob });
 }
 
 async function loadList() {
@@ -186,7 +229,21 @@ async function loadList() {
     for (const v of videos) {
       const row = document.createElement("div");
       row.className = "item";
-      row.innerHTML = `<div><a href="${v.url}" target="_blank">${escapeHtml(v.title || v.key)}</a><br><small>${escapeHtml(v.key)}・${mb(v.size)}</small></div>`;
+      row.innerHTML = `<div class="left">${v.thumb ? `<img class="tn" src="${v.thumb}" alt="">` : `<div class="tn"></div>`}<div><a href="${v.url}" target="_blank">${escapeHtml(v.title || v.key)}</a><br><small>${escapeHtml(v.key)}・${mb(v.size)}</small></div></div>`;
+      const btns = document.createElement("div");
+      btns.className = "btns";
+      const tb = document.createElement("button");
+      tb.className = "ghost";
+      tb.textContent = v.thumb ? "サムネ変更" : "サムネ追加";
+      const tin = document.createElement("input");
+      tin.type = "file"; tin.accept = "image/*"; tin.className = "hidden";
+      tb.onclick = () => tin.click();
+      tin.onchange = async () => {
+        const f = tin.files[0]; if (!f) return;
+        tb.disabled = true; tb.textContent = "保存中…";
+        try { await uploadThumb(v.key, f); loadList(); } catch (e) { tb.textContent = "失敗"; tb.disabled = false; }
+      };
+      btns.append(tb, tin);
       const del = document.createElement("button");
       del.className = "ghost";
       del.textContent = "削除";
@@ -196,7 +253,8 @@ async function loadList() {
         try { await api("/api/delete", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ key: v.key }) }); row.remove(); }
         catch (e) { del.textContent = "失敗"; }
       };
-      row.appendChild(del);
+      btns.appendChild(del);
+      row.appendChild(btns);
       $("list").appendChild(row);
     }
   } catch (e) {
