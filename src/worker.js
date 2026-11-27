@@ -5,7 +5,7 @@
 // - /api/upload/*      : ブラウザからの分割アップロード（UPLOAD_PASSWORD 必須）
 // - /api/delete        : 動画の削除（UPLOAD_PASSWORD 必須）
 
-const PUBLIC_FOLDERS = ["bmsg-fes-26/", "archive/", "radio-audio/"];
+const PUBLIC_FOLDERS = ["bmsg-fes-26/", "archive/", "radio-audio/", "external-fes/"];
 
 export default {
   async fetch(request, env) {
